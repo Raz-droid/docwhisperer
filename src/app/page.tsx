@@ -1,7 +1,8 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import {UserButton,SignedIn,SignInButton} from "@clerk/nextjs"
+import FileUpload from "@/components/ui/FileUpload";
 import { auth } from "@clerk/nextjs/server";
-import {LogIn} from "lucide-react"
+import {Heading1, LogIn} from "lucide-react"
 
 
 
@@ -29,7 +30,7 @@ export default async function Home() {
           </div>
           <p className="max-w-xl mt-1 text-lg text-slate-600 ">join millions of students,researchers and professionals to instanly answers questions and understand research with AI</p>
           <div className="w-full mt-4">
-              {isAuth ? (<h1>File Upload</h1>):
+              {isAuth ? (<FileUpload/>):
                 (
                   <SignInButton mode="modal">
                   <div>
