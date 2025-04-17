@@ -13,6 +13,8 @@ export const Chats = pgTable("Chats",{
 
 }) 
 
+export type DrizzleChat = typeof Chats.$inferSelect
+
 export const messages = pgTable("messages",{
     message_id : serial("messages_id").primaryKey(),
     chat_id : integer("chat_id").references(()=>Chats.chat_id).notNull(),

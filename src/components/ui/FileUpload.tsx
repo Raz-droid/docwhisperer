@@ -7,8 +7,10 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import React from "react";
+import {useRouter} from "next/navigation";
 
 const FileUpload = () => {
+  const router = useRouter();
   const [uploading, setUploading] = React.useState(false);
   const { mutate, isPending } = useMutation({
     mutationFn: async ({
@@ -31,24 +33,26 @@ const FileUpload = () => {
     onDrop: async (acceptedFiles) => {
       const file = acceptedFiles[0];
       if (file.size > 10 * 1024) {
-        alert("Please Upload a smaller file");
+        toast.error("Please Upload a smaller file");
         return;
       }
       try {
         setUploading(true);
         const data = await UploadtoS3(file);
         if (!data?.file_name || !data.filekey) {
-          alert("Something Went Wrong");
+          toast.error("Something Went Wrong");
           return;
         }
         mutate(
           { filekey: data.filekey, file_name: data.file_name },
           {
-            onSuccess: () => {
-              console.log("mutation done", data);
+            onSuccess: ({chat_id}) => {
+              toast.success("chat Created successfully");
+              router.push(`/chat/${chat_id}`);
             },
             onError: () => {
-              console.log("error creating chat");
+              toast.error("error creating chat");
+
             },
           }
         );
@@ -71,10 +75,8 @@ const FileUpload = () => {
         <input {...getInputProps()} />
         {uploading || isPending ? (
           <>
-          <Loader2 className="h-1- w-10 text-blue-500 animate-spin"/>
-          <p className="m-2 text-sm text-slate-400">
-            spilling tea to gpt
-          </p>
+            <Loader2 className="h-1- w-10 text-blue-500 animate-spin" />
+            <p className="m-2 text-sm text-slate-400">spilling tea to gpt</p>
           </>
         ) : (
           <>
