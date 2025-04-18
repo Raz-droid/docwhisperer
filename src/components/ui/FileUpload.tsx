@@ -1,17 +1,17 @@
 "use client";
 
 import { UploadtoS3 } from "@/lib/s3";
-import {  FileUp,  Loader2 } from "lucide-react";
+import { FileUp, Loader2 } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import React from "react";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const FileUpload = () => {
   const router = useRouter();
-  const [uploading, setUploading] = React.useState(false);
+  const [isuploadingtos3, setUploadingtos3] = React.useState(false);
   const { mutate, isPending } = useMutation({
     mutationFn: async ({
       filekey,
@@ -37,7 +37,7 @@ const FileUpload = () => {
         return;
       }
       try {
-        setUploading(true);
+        setUploadingtos3(true);
         const data = await UploadtoS3(file);
         if (!data?.file_name || !data.filekey) {
           toast.error("Something Went Wrong");
@@ -46,21 +46,20 @@ const FileUpload = () => {
         mutate(
           { filekey: data.filekey, file_name: data.file_name },
           {
-            onSuccess: ({chat_id}) => {
+            onSuccess: ({ chat_id }) => {
               toast.success("chat Created successfully");
               router.push(`/chat/${chat_id}`);
             },
             onError: () => {
               toast.error("error creating chat");
-
             },
+            onSettled: () => setUploadingtos3(false),
           }
         );
         console.log("data", data);
       } catch (error) {
-        console.log("Error not uploaded to s3",error);
+        console.log("Error not uploaded to s3", error);
       } finally {
-        setUploading(false);
       }
     },
   });
@@ -74,10 +73,12 @@ const FileUpload = () => {
       >
         <input {...getInputProps()} />
         <div className="flex flex-col items-center justify-center gap-4">
-          {uploading  && isPending ? (
+          {isuploadingtos3 && isPending ? (
             <>
               <Loader2 className="h-10 w-10 animate-spin text-rose-500" />
-              <p className="text-sm text-slate-500">Processing your document...</p>
+              <p className="text-sm text-slate-500">
+                Processing your document...
+              </p>
             </>
           ) : (
             <>
@@ -99,6 +100,4 @@ const FileUpload = () => {
     </div>
   );
 };
-;
-
 export default FileUpload;
