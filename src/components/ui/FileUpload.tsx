@@ -65,28 +65,40 @@ const FileUpload = () => {
     },
   });
   return (
-    <div className="bg-white rounded-xl">
+    <div className="rounded-xl bg-white/50 p-1">
       <div
         {...getRootProps({
           className:
-            "border-dashed border-2 rounded-xl cursor-pointer bg-gray-50 py-8 flex flex-col justify-center items-center",
+            "border-2 border-dashed border-slate-300 rounded-lg bg-white/50 p-8 transition-all hover:border-rose-400 hover:bg-rose-50/50 cursor-pointer",
         })}
       >
         <input {...getInputProps()} />
-        {uploading || isPending ? (
-          <>
-            <Loader2 className="h-1- w-10 text-blue-500 animate-spin" />
-            <p className="m-2 text-sm text-slate-400">Confessing to the bot</p>
-          </>
-        ) : (
-          <>
-            <FileUp className="text-blue-500 w-10 h-10 " />
-            <p className="text-slate-400 mt-2 text-sm ">Drop PDF Here</p>
-          </>
-        )}
+        <div className="flex flex-col items-center justify-center gap-4">
+          {uploading ? (
+            <>
+              <Loader2 className="h-10 w-10 animate-spin text-rose-500" />
+              <p className="text-sm text-slate-500">Processing your document...</p>
+            </>
+          ) : (
+            <>
+              <div className="rounded-full bg-rose-100 p-3">
+                <FileUp className="h-6 w-6 text-rose-600" />
+              </div>
+              <div className="text-center">
+                <p className="text-sm font-medium text-slate-900">
+                  Drop your PDF here
+                </p>
+                <p className="text-xs text-slate-500">
+                  or click to browse files
+                </p>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
 };
+;
 
 export default FileUpload;

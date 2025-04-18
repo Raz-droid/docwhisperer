@@ -27,46 +27,50 @@ export default async function Home() {
 
 
   return (
-    <div className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
-        <div className="flex flex-col items-center text-center">
-          <div className="flex items-center">
-            <h1 className="mr-3 text-5xl font-semibold">
-              Doc Whisperer
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </h1>
-          </div>
-          <div className="flex mt-5 cursor-pointer border-red-500">
-            {isAuth && firstchat &&(
-                <Link href={`/chat/${firstchat.chat_id}`}><Button className="cursor-pointer ">Go to Chat</Button></Link>
-            )}
-           
-          </div>
-          <p className="max-w-xl mt-1 text-lg text-slate-600 ">
-            Empower your learning and research by getting instant answers and
-            insights from PDFs using AI—trusted by students, researchers, and
-            professionals worldwide.
-          </p>
-          <div className="w-full mt-4">
-            {isAuth ? (
-              <FileUpload />
-            ) : (
-              <SignInButton mode="modal">
-                <div>
-                  <Button
-                    asChild
-                    className=" w-1/3 h-10 hover:bg-teal-600 transition cursor-pointer"
-                  >
-                    <span className="flex items-center gap-2 justify-center">
-                      Login to get started
-                      <LogIn className="w-4 h-4 ml-1 " />
-                    </span>
+    <div className="min-h-screen w-full bg-gradient-to-br from-rose-50 via-white to-teal-50 px-4 py-8">
+      <div className="mx-auto max-w-4xl">
+        <div className="rounded-2xl bg-white/80 backdrop-blur-sm p-8 shadow-xl">
+          <div className="flex flex-col items-center space-y-8">
+            {/* Header Section */}
+            <div className="flex items-center space-x-4">
+              <h1 className="bg-gradient-to-r from-rose-600 to-teal-600 bg-clip-text text-6xl font-bold text-transparent">
+              SmartReaderAI
+              </h1>
+            </div>
+
+            {/* Chat Button Section */}
+            {isAuth && firstchat && (
+              <div className="animate-fade-in">
+                <Link href={`/chat/${firstchat.chat_id}`}>
+                  <Button className="transform transition-all hover:scale-105 hover:shadow-lg cursor-pointer">
+                    Continue to Chat
                   </Button>
-                </div>
-              </SignInButton>
+                </Link>
+              </div>
             )}
+
+            {/* Description Section */}
+            <p className="max-w-2xl text-center text-lg leading-relaxed text-slate-700">
+              Empower your learning and research by getting instant answers and
+              insights from PDFs using AI—trusted by students, researchers, and
+              professionals worldwide.
+            </p>
+
+            {/* Upload/Login Section */}
+            <div className="w-full max-w-xl">
+              {isAuth ? (
+                <FileUpload />
+              ) : (
+                <Button
+                  className="group h-12 w-full transform bg-gradient-to-r from-rose-500 to-teal-500 text-lg transition-all hover:scale-[1.01] hover:shadow-lg"
+                >
+                  <span className="flex items-center justify-center space-x-2">
+                    <span>Login to get started</span>
+                    <LogIn className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>
