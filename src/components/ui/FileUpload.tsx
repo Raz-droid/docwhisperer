@@ -1,7 +1,7 @@
 "use client";
 
 import { UploadtoS3 } from "@/lib/s3";
-import { AlertTriangle, Inbox, Loader2 } from "lucide-react";
+import { AlertTriangle, FileUp, Inbox, Loader2 } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
@@ -76,11 +76,11 @@ const FileUpload = () => {
         {uploading || isPending ? (
           <>
             <Loader2 className="h-1- w-10 text-blue-500 animate-spin" />
-            <p className="m-2 text-sm text-slate-400">spilling tea to gpt</p>
+            <p className="m-2 text-sm text-slate-400">Confessing to the bot</p>
           </>
         ) : (
           <>
-            <Inbox className="text-blue-500 w-10 h-10 " />
+            <FileUp className="text-blue-500 w-10 h-10 " />
             <p className="text-slate-400 mt-2 text-sm ">Drop PDF Here</p>
           </>
         )}

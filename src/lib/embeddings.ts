@@ -8,6 +8,7 @@ export async function getEmbeddings(text: string) {
         },
         body: JSON.stringify({
           input: [text.replace(/\n/g, " ").trim()],
+
           model: "jina-embeddings-v2-base-en",
         }),
       });

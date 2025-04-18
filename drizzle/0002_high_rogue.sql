@@ -1,0 +1,1 @@
+ALTER TABLE "messages" RENAME COLUMN "messages_id" TO "message_id";

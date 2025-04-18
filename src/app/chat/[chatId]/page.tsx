@@ -1,50 +1,60 @@
+// src/app/chat/[chatId]/page.tsx
+
 import { db } from "@/lib/db";
 import { Chats } from "@/lib/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import React from "react";
 import { eq } from "drizzle-orm";
 import { ChatSideBar } from "@/components/ui/ChatSideBar";
+import PDFViewer from "@/components/ui/PDFviewer";
+import { ChatComponent } from "@/components/ui/ChatComponent";
+import { chat } from "@pinecone-database/pinecone/dist/assistant/data/chat";
+
+
+type Params = Promise<{
+  chatId: string;
+}>;
 
 type Props = {
-  params: {
-    chatId: string;
-  };
+  params: Params;
 };
 
-const page = async ({params}: Props) => {
+export default async function Page({ params }: Props) {
   const { userId } = await auth();
-  if (!auth) {
+
+  if (!userId) {
     return redirect("/");
   }
-  const _chats = await db
-    .select()
-    .from(Chats)
-    .where(eq(Chats.user_id, userId!));
-  if (!_chats) {
+
+  const { chatId: chatIdStr } = await params;
+  const chatId = Number(chatIdStr); // parse chatId safely
+
+  const _chats = await db.select().from(Chats).where(eq(Chats.user_id, userId));
+
+  if (!_chats.find((chat) => chat.chat_id === chatId)) {
     return redirect("/");
   }
-  if (!_chats.find((chat) => chat.chat_id === parseInt(params.chatId))) {
-    return redirect("/");
-  }
+
+  const currentchat = _chats.find((chat) => chat.chat_id === chatId);
 
   return (
-    <div className="flex max-h-screen overflow-scroll">
-      <div className="flex w-full max-h-screen overflow-scroll">
-        <div className="flex-[1] max-w-xs bg-red-400 ">
-          <ChatSideBar chats={_chats} chat_id={parseInt(params.chatId)}/>
+    <div className="flex h-screen overflow-auto">
+      <div className="flex w-full max-h-screen overflow-auto">
+        {/* Sidebar */}
+        <div className="flex-[2] max-w-xs ">
+          <ChatSideBar chats={_chats} chatId={chatId} />
         </div>
 
-        <div className="max-h-screen p-4 overflow-scroll flex-[5] bg-blue-600">
-          {/* pdf view component */}
+        {/* Scrollable PDF view */}
+        <div className="flex-[5] p-4 overflow-auto scrollbar-hide">
+          <PDFViewer pdf_url={currentchat?.pdf_url!} />
         </div>
 
-        <div className="flex-[3] border-l-4 border-l-slate-200 bg-yellow-400">
-          {/* chat box component */}
+        {/* Chat box (static) */}
+        <div className="flex-[3] border-l-4 border-l-slate-200 overflow-auto scrollbar-hide ">
+          <ChatComponent chat_id={chatId}/>
         </div>
       </div>
     </div>
   );
-};
-
-export default page;
+}

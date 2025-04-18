@@ -32,13 +32,18 @@ export const getPineconeClient = () => {
 
 export async function loadS3intopinecone(filekey: string) {
   console.log("dowloading S3 into file system");
-  const file_name = await downloadFromS3(filekey);
-  if (!file_name) {
-    throw new Error("Could not download from s3");
-  }
+   const file_name = await downloadFromS3(filekey);
+   if (!file_name) {
+     throw new Error("Could not download from s3");
+   }
+
+
+  
+  const loader = new PDFLoader(file_name);
   //load the file downloaded from s3 into the pdf loader
 
-  const loader = new PDFLoader(file_name);
+  
+
   const pages = (await loader.load()) as PdfPage[];
 
   //segment the each pdf pages into smaller chunks of test

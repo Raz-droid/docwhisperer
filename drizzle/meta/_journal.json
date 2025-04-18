@@ -15,6 +15,27 @@
       "when": 1744564035958,
       "tag": "0001_small_captain_cross",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744959120960,
+      "tag": "0002_high_rogue",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1744959457684,
+      "tag": "0003_cooing_dormammu",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1744972738952,
+      "tag": "0004_ambiguous_proteus",
+      "breakpoints": true
     }
   ]
 }
