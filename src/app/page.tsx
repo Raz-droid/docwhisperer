@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { UserButton, SignedIn } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignInButton } from "@clerk/nextjs";
 import FileUpload from "@/components/ui/FileUpload";
 import { auth } from "@clerk/nextjs/server";
-import {  LogIn } from "lucide-react";
+import { LogIn } from "lucide-react";
 import { db } from "@/lib/db";
 import { Chats } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -61,12 +61,14 @@ export default async function Home() {
               {isAuth ? (
                 <FileUpload />
               ) : (
-                <Button className="group h-12 w-full transform bg-gradient-to-r from-rose-500 to-teal-500 text-lg transition-all hover:scale-[1.01] hover:shadow-lg">
-                  <span className="flex items-center justify-center space-x-2">
-                    <span>Login to get started</span>
-                    <LogIn className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </Button>
+                <SignInButton>
+                  <Button className="group h-12 w-full transform bg-gradient-to-r from-rose-500 to-teal-500 text-lg transition-all hover:scale-[1.01] hover:shadow-lg cursor-pointer">
+                    <span className="flex items-center justify-center space-x-2">
+                      <span>Login to get started</span>
+                      <LogIn className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </Button>
+                </SignInButton>
               )}
             </div>
           </div>
