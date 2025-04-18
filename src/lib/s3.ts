@@ -27,7 +27,7 @@ export async function UploadtoS3(file:File){
 
     }).promise()
 
-    await upload.then(data=>{
+    await upload.then(()=>{
         console.log("successfully uploaded to s3!!")
 
     })
@@ -40,7 +40,7 @@ export async function UploadtoS3(file:File){
 
 
  } catch (error) {
-    
+    console.log("error uploading to s3",error)
  }
 } 
 

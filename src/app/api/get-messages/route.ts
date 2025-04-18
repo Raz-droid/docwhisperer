@@ -1,7 +1,6 @@
 import { db } from "@/lib/db";
 import { Chatmessages } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { desc } from "drizzle-orm/expressions";
 import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {

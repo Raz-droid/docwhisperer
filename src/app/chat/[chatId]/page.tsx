@@ -8,7 +8,7 @@ import { eq } from "drizzle-orm";
 import { ChatSideBar } from "@/components/ui/ChatSideBar";
 import PDFViewer from "@/components/ui/PDFviewer";
 import { ChatComponent } from "@/components/ui/ChatComponent";
-import { chat } from "@pinecone-database/pinecone/dist/assistant/data/chat";
+
 
 
 type Params = Promise<{
@@ -35,7 +35,7 @@ export default async function Page({ params }: Props) {
     return redirect("/");
   }
 
-  const currentchat = _chats.find((chat) => chat.chat_id === chatId);
+  const currentchat = _chats.find((chat) => chat.chat_id === chatId)!;
 
   return (
     <div className="flex h-screen overflow-auto">
@@ -47,7 +47,7 @@ export default async function Page({ params }: Props) {
 
         {/* Scrollable PDF view */}
         <div className="flex-[5] p-4 overflow-auto scrollbar-hide">
-          <PDFViewer pdf_url={currentchat?.pdf_url!} />
+          <PDFViewer pdf_url={currentchat.pdf_url!} />
         </div>
 
         {/* Chat box (static) */}

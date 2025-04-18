@@ -6,7 +6,6 @@ import { Button } from "./button";
 import { Send } from "lucide-react";
 import MessagesList from "./MessagesList";
 import { useQuery } from "@tanstack/react-query";
-import { chat } from "@pinecone-database/pinecone/dist/assistant/data/chat";
 import axios from "axios";
 import type { Message } from "@ai-sdk/react";
 

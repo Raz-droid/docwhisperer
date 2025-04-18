@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import {ClerkProvider,SignInButton,SignUpButton,SignedIn,SignedOut,UserButton} from "@clerk/nextjs"
-import { Button, buttonVariants } from "@/components/ui/button";
-import {LogIn} from "lucide-react"
+import {ClerkProvider,SignUpButton,SignedOut} from "@clerk/nextjs"
+import { Button } from "@/components/ui/button";
+
 import Providers from "@/components/ui/Providers";
 import {Toaster} from "react-hot-toast"
  

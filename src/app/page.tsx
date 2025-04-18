@@ -1,14 +1,12 @@
-import { Button, buttonVariants } from "@/components/ui/button";
-import { UserButton, SignedIn, SignInButton } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { UserButton, SignedIn } from "@clerk/nextjs";
 import FileUpload from "@/components/ui/FileUpload";
 import { auth } from "@clerk/nextjs/server";
-import { Heading1, LogIn } from "lucide-react";
+import {  LogIn } from "lucide-react";
 import { db } from "@/lib/db";
 import { Chats } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import Link from 'next/link'
-
-
+import Link from "next/link";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -22,9 +20,8 @@ export default async function Home() {
     if (firstChat) {
       firstchat = firstChat[0];
     }
-  console.log("firstchat", firstchat);
+    console.log("firstchat", firstchat);
   }
-
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-rose-50 via-white to-teal-50 px-4 py-8">
@@ -33,9 +30,12 @@ export default async function Home() {
           <div className="flex flex-col items-center space-y-8">
             {/* Header Section */}
             <div className="flex items-center space-x-4">
-              <h1 className="bg-gradient-to-r from-rose-600 to-teal-600 bg-clip-text text-6xl font-bold text-transparent">
-              SmartReaderAI
+              <h1 className="bg-gradient-to-r from-rose-600 to-teal-600 bg-clip-text text-6xl font-bold text-transparent ">
+                SmartReaderAI
               </h1>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
             </div>
 
             {/* Chat Button Section */}
@@ -61,9 +61,7 @@ export default async function Home() {
               {isAuth ? (
                 <FileUpload />
               ) : (
-                <Button
-                  className="group h-12 w-full transform bg-gradient-to-r from-rose-500 to-teal-500 text-lg transition-all hover:scale-[1.01] hover:shadow-lg"
-                >
+                <Button className="group h-12 w-full transform bg-gradient-to-r from-rose-500 to-teal-500 text-lg transition-all hover:scale-[1.01] hover:shadow-lg">
                   <span className="flex items-center justify-center space-x-2">
                     <span>Login to get started</span>
                     <LogIn className="h-5 w-5 transition-transform group-hover:translate-x-1" />

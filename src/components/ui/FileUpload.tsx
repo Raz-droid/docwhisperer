@@ -1,7 +1,7 @@
 "use client";
 
 import { UploadtoS3 } from "@/lib/s3";
-import { AlertTriangle, FileUp, Inbox, Loader2 } from "lucide-react";
+import {  FileUp,  Loader2 } from "lucide-react";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
@@ -74,7 +74,7 @@ const FileUpload = () => {
       >
         <input {...getInputProps()} />
         <div className="flex flex-col items-center justify-center gap-4">
-          {uploading ? (
+          {uploading  && isPending ? (
             <>
               <Loader2 className="h-10 w-10 animate-spin text-rose-500" />
               <p className="text-sm text-slate-500">Processing your document...</p>
