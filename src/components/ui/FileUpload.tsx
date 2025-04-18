@@ -58,7 +58,7 @@ const FileUpload = () => {
         );
         console.log("data", data);
       } catch (error) {
-        console.log("Error not uploaded to s3");
+        console.log("Error not uploaded to s3",error);
       } finally {
         setUploading(false);
       }

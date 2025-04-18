@@ -5,7 +5,7 @@ import { Chats } from "@/lib/db/schema";
 import { getS3Url } from "@/lib/s3";
 import { auth } from "@clerk/nextjs/server";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({
