@@ -32,8 +32,8 @@ const FileUpload = () => {
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
       const file = acceptedFiles[0];
-      if (file.size > 10 * 1024) {
-        toast.error("Please Upload a smaller file");
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error("Please upload a file smaller than 10 MB");
         return;
       }
       try {

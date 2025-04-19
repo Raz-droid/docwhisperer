@@ -32,7 +32,7 @@ export const ChatComponent = ({ chat_id }: Props) => {
     initialMessages: data || [],
   });
   React.useEffect(() => {
-    const messageContainer = document.getElementById("message-container");
+    const messageContainer = document.getElementById("chatbox");
     if (messageContainer) {
       messageContainer.scrollTo({
         top: messageContainer.scrollHeight,
