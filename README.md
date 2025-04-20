@@ -9,7 +9,7 @@ A powerful AI assistant that lets users upload PDFs, view the document, and ask 
 - **Frontend**: Next.js 15, React 19, TailwindCSS 4, ShadCN, Lucide Icons  
 - **Backend**: Node.js, LangChain, Drizzle ORM, NeonDB (PostgreSQL)  
 - **AI & Embeddings**:  
-  - OpenAI & Groq LLMs via `@ai-sdk`  
+  - Groq LLMs via `@ai-sdk`  
   - Jina Embeddings v2 (for vectorization)  
 - **RAG Stack**: Pinecone (Vector DB), PDF parsing with `pdf-parse`, chunking with `@pinecone-database/doc-splitter`  
 - **File Handling**: AWS S3 (via `@aws-sdk/client-s3`)  
